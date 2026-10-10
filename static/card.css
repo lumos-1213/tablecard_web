@@ -49,14 +49,14 @@ nav ul {
     list-style: none;        /* 去掉小黑点 */
     margin: 0;
     padding: 0;
-    justify-content: center; /* 让导航项在中间居中，如果你想靠左，可以改成 flex-start */
-    gap: 40px;               /* 每个导航项之间的间距（替代原本的 margin） */
+    justify-content: flex-start; /* 让导航项在中间居中，如果你想靠左，可以改成 flex-start */
+    gap: 0;               /* 每个导航项之间的间距（替代原本的 margin） */
 }
 
 /* 美化超链接 */
 nav ul li a {
     display: block;          /* 让整个区域都能被点击，而不是只有文字能点 */
-    padding: 20px 10px;      /* 上下20px，左右10px，撑开点击区域 */
+    padding: 20px 30px;      /* 上下20px，左右10px，撑开点击区域 */
     text-decoration: none;   /* 去掉下划线 */
     color: #333;             /* 深灰色字体 */
     font-weight: bold;       /* 字体加粗 */
@@ -67,4 +67,33 @@ nav ul li a {
 nav ul li a:hover {
     color: #007bff;          /* 悬停变成你之前那个亮蓝色 */
     background-color: #f8f9fa; /* 悬停时加一个极浅的灰色背景 */
+}
+
+/* 图片选择区 */
+.bg-grid {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.bg-option {
+    width: 80px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 3px solid transparent; /* 默认无边框 */
+    transition: all 0.2s;
+}
+
+/* 鼠标悬停时稍微放大 */
+.bg-option:hover {
+    transform: scale(1.05);
+}
+
+/* 被选中的样式（由 JS 动态添加） */
+.bg-option.selected {
+    border-color: #007bff; /* 选中时显示蓝色边框 */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }

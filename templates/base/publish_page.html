@@ -10,28 +10,84 @@
 	<h2 style="text-align: center;">桌签控制系统</h2>
     <div class="card">
     <!-- 删掉多余的 id="my-input"，只保留 id="name" 和 id="title" -->
-    <input id="name" placeholder="输入姓名">
-    <input id="title" placeholder="输入职位">
-    <button onclick="send()">更新桌签</button>
-    <p id="status" style="color: green;"></p>
-</div>
+        <input id="name" placeholder="输入姓名">
+        <input id="title" placeholder="输入职位">
+        <p id="status" style="color: green;"></p>
+        <!-- 在 <div class="card"> 里面添加 -->
+        <div class="background-selector">
+        <p style="margin: 10px 0 5px; font-weight: bold; color: #333;">选择桌签背景：</p>
+            <div class="bg-grid">
+        <!-- 注意图片路径，这里用的是 Flask 的 static 路径 -->
+            <img src="{{ url_for('static', filename='images/background/bkg1.png') }}"
+             class="bg-option" onclick="selectBg(this, 'bkg1.png')">
+            <img src="{{ url_for('static', filename='images/background/bkg2.png') }}"
+             class="bg-option" onclick="selectBg(this, 'bkg2.png')">
+            </div>
+        </div>
+        <button onclick="send()">更新桌签</button>
+    </div>
 {% endblock %}
 
 {% block scripts %}
     <script>
-        function send() {
-            const name = document.getElementById('name').value;
-            const title = document.getElementById('title').value;
-            const status = document.getElementById('status');
-            status.textContent = '正在发送中...';
-            fetch('/send', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({name: name, title: title})
-            })
-            .then(res => res.json())
-            .then(data => status.textContent = data.msg)
-            .catch(err => status.textContent = '发送失败' + err);
-        }
+        // 新增一个全局变量，默认选第一张
+let selectedBackground = 'bkg1.png';
+
+// 图片点击事件
+function selectBg(element, bgName) {
+    // 1. 更新选中状态
+    selectedBackground = bgName;
+
+    // 2. 移除所有图片的 selected 类
+    document.querySelectorAll('.bg-option').forEach(img => img.classList.remove('selected'));
+
+    // 3. 给当前点击的图片加上 selected 类
+    element.classList.add('selected');
+}
+
+// 修改原有的 send() 函数
+function send() {
+    const name = document.getElementById('name').value;
+    const title = document.getElementById('title').value;
+    const status = document.getElementById('status');
+
+    // 检查是否填了名字
+    if (!name) {
+        status.textContent = '请先输入姓名！';
+        status.style.color = 'red';
+        return;
+    }
+
+    if (!title) {
+        status.textContent = '请先输入职位！';
+        status.style.color = 'red';
+        return;
+    }
+
+    status.textContent = '正在发送中...';
+    status.style.color = 'green';
+
+    fetch('/send', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        // 重点：把 selectedBackground 一起发给后端
+        body: JSON.stringify({
+            name: name,
+            title: title,
+            background: selectedBackground
+        })
+    })
+    .then(res => res.json())
+    .then(data => status.textContent = data.msg)
+    .catch(err => status.textContent = '发送失败' + err);
+}
+
+// 页面加载时，默认选中第一张图（可选）
+window.onload = function() {
+    const firstImg = document.querySelector('.bg-option');
+    if (firstImg) {
+        firstImg.classList.add('selected');
+    }
+};
     </script>
 {% endblock %}
