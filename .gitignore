@@ -1,0 +1,18 @@
+# 虚拟环境（绝对不要传，Windows和树莓派的Linux环境不兼容）
+.venv/
+venv/
+env/
+
+# PyCharm 配置文件
+.idea/
+
+# Python 编译缓存
+__pycache__/
+*.pyc
+
+# 运行时日志
+flask.log
+
+# 系统文件（Mac或Windows自带的隐藏文件）
+.DS_Store
+Thumbs.db

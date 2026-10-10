@@ -1,0 +1,11 @@
+{% extends "base/base.html" %}
+
+{% block title %}首页{% endblock %}
+
+{% block head %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='card.css') }}">
+{% endblock %}
+
+{% block main %}
+    <h1 style="text-align: center;">欢迎您使用本智能桌签控制系统！</h1>
+{% endblock %}

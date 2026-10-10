@@ -1,0 +1,70 @@
+/* 卡片整体样式 */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: 0 auto; /* 居中 */
+}
+
+/* 1. 让输入框变成两行，并铺满卡片宽度 */
+.card input {
+    display: block;       /* 变成块级元素，自动换行 */
+    width: 100%;          /* 撑满整行 */
+    padding: 10px;        /* 内部留白 */
+    margin-bottom: 15px;  /* 每个输入框之间留出15px的空隙 */
+    border: 1px solid #ccc; /* 浅灰色边框 */
+    border-radius: 5px;   /* 输入框也加一点圆角 */
+    font-size: 16px;
+    box-sizing: border-box; /* 保证padding不会撑破width:100% */
+}
+
+/* 2. 美化按钮：蓝色背景 + 白字 + 圆角 */
+.card button {
+    width: 100%;          /* 按钮和输入框一样宽 */
+    padding: 12px;
+    background-color: #007bff; /* 你以前的亮蓝色 */
+    color: white;              /* 白色字体 */
+    border: none;              /* 去掉默认的黑色边框 */
+    border-radius: 5px;        /* 圆角 */
+    font-size: 18px;
+    cursor: pointer;           /* 鼠标放上去变成小手 */
+    margin-top: 5px;
+}
+
+/* 鼠标悬停在按钮上时的效果（可选，让交互更好看） */
+.card button:hover {
+    background-color: #0056b3; /* 颜色变深一点 */
+}
+
+/* 导航栏整体背景 */
+nav {
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 底部加一条淡淡的阴影，更有层次感 */
+}
+
+/* 核心：让 ul 变成弹性盒子，子元素横向排列 */
+nav ul {
+    display: flex;           /* 👈 变成横向排列的关键代码 */
+    list-style: none;        /* 去掉小黑点 */
+    margin: 0;
+    padding: 0;
+    justify-content: center; /* 让导航项在中间居中，如果你想靠左，可以改成 flex-start */
+    gap: 40px;               /* 每个导航项之间的间距（替代原本的 margin） */
+}
+
+/* 美化超链接 */
+nav ul li a {
+    display: block;          /* 让整个区域都能被点击，而不是只有文字能点 */
+    padding: 20px 10px;      /* 上下20px，左右10px，撑开点击区域 */
+    text-decoration: none;   /* 去掉下划线 */
+    color: #333;             /* 深灰色字体 */
+    font-weight: bold;       /* 字体加粗 */
+    font-size: 16px;
+}
+
+/* 鼠标悬停时的效果 */
+nav ul li a:hover {
+    color: #007bff;          /* 悬停变成你之前那个亮蓝色 */
+    background-color: #f8f9fa; /* 悬停时加一个极浅的灰色背景 */
+}

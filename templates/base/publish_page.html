@@ -1,0 +1,37 @@
+{% extends "base/base.html" %}
+
+{% block title %}发布页{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='card.css') }}">
+{% endblock %}
+
+{% block main %}
+	<h2 style="text-align: center;">桌签控制系统</h2>
+    <div class="card">
+    <!-- 删掉多余的 id="my-input"，只保留 id="name" 和 id="title" -->
+    <input id="name" placeholder="输入姓名">
+    <input id="title" placeholder="输入职位">
+    <button onclick="send()">更新桌签</button>
+    <p id="status" style="color: green;"></p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        function send() {
+            const name = document.getElementById('name').value;
+            const title = document.getElementById('title').value;
+            const status = document.getElementById('status');
+            status.textContent = '正在发送中...';
+            fetch('/send', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({name: name, title: title})
+            })
+            .then(res => res.json())
+            .then(data => status.textContent = data.msg)
+            .catch(err => status.textContent = '发送失败' + err);
+        }
+    </script>
+{% endblock %}

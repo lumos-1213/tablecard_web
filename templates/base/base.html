@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %} | 智能桌签控制系统</title>
+    <style>
+        body { font-family: Arial; padding: 30px; background: #f0f0f0; }
+    </style>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">首页</a></li>
+            <li><a href="{{ url_for('publish_page') }}">发布</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+
+    <footer>
+        Copyright 2008 by <a href="http://domain.invalid/">you</a>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>
